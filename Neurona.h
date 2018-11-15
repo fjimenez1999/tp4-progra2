@@ -1,5 +1,13 @@
+#pragma once
+#ifndef NEURONA_H
+#define NEURONA_H
+#include "conexion.h"
+#include "lista.h"
 class Neurona{
-  double umbral
-  double carga
-  //Lista conexiones
+    float carga;
+    float umbral;
+    Lista<Conexion> *conexiones;
+    int AgregarConexión(Neurona neurona, float peso) ;
 };
+#endif
+

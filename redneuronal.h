@@ -6,6 +6,6 @@ class RedNeuronal{
     RedNeuronal() ;
     int AgregarCapa(int cNeuronas) ;
     //Categoria clasificar(dato) ;
-    void Entrenar(datos) ;
+    void Entrenar(int datos) ;
 };
 #endif // REDNEURONAL_H

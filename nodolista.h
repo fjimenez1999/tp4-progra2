@@ -1,6 +1,6 @@
-#pragma once
 #ifndef NODOLISTA_H
 #define NODOLISTA_H
+
 #include <iostream>
 #include <QTextStream>
 using namespace std;

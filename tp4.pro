@@ -25,7 +25,10 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    neurona.cpp \
+    capa.cpp \
+    redneuronal.cpp
 
 HEADERS += \
         mainwindow.h \

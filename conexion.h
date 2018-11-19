@@ -1,10 +1,11 @@
-#pragma once
-#ifndef CONEXION_H
-#define CONEXION_H
+#pragma once //qt estaba tirando un error al usar include guards normales en archivos especificos, por eso pragma once
 #include "neurona.h"
 class Conexion {
-    Neurona r ;
+    Neurona *r ;
     float peso ;
-    Conexion(Neurona neurona, int peso);
+public:
+    Conexion(Neurona *neurona, float peso){
+        r=neurona;
+        this->peso=peso;
+    }
 };
-#endif // CONEXION_H

@@ -2,7 +2,10 @@
 #define CAPA_H
 #include "neurona.h"
 class Capa{
-    Lista<Neurona> neuronas;
-    int AgregarNeurona(Neurona neurona) ;
+
+    Lista<Neurona*> *neuronas;
+public:
+    Capa(int cNeuronas);
+    int AgregarNeurona(Neurona *neurona) ;
 };
 #endif // CAPA_H

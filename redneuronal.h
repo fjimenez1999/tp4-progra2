@@ -2,10 +2,10 @@
 #define REDNEURONAL_H
 #include "capa.h"
 class RedNeuronal{
-    Lista<Capa> capas ;
+    Lista<Capa*> *capas ;
     RedNeuronal() ;
     int AgregarCapa(int cNeuronas) ;
-    //Categoría clasificar(dato) ;
-    //entrenar(datos) ;
+    //Categoria clasificar(dato) ;
+    void Entrenar(datos) ;
 };
 #endif // REDNEURONAL_H

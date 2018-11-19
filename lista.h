@@ -1,4 +1,3 @@
-#pragma once
 #ifndef LISTA_H
 #define LISTA_H
 using namespace std;
@@ -38,4 +37,4 @@ public:
   }
 
 };
-#endif // LISTA_H
+#endif

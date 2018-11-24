@@ -5,7 +5,7 @@
 #include <QTime>
 class Neurona;
 class Conexion {
-    QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().msec());
+    QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().minute());
     Neurona *r = nullptr;
     float peso = random1->bounded(1.00);
 public:

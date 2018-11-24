@@ -1,12 +1,12 @@
 #include "capa.h"
 Capa::Capa(int cNeuronas){
     for(int i = 0; i < cNeuronas; i++){
-        AgregarNeurona('r',0,0);
+        AgregarNeurona();
     }
 }
 
-int Capa::AgregarNeurona(char tipo , float carga, float umbral){
-    Neurona *n = new Neurona(tipo,carga,umbral);
+int Capa::AgregarNeurona(){
+    Neurona *n = new Neurona();
     neuronas->Insertar(n);
     return 0;
 }
@@ -20,9 +20,9 @@ int Capa::CantidadNeuronas(){
 }
 
 Neurona* Capa::ConsultarNeurona(int indice){
-    Neurona* consultada = nullptr;
-    if(indice < neuronas->Longitud() && indice >= 0){
+    Neurona* consultada = neuronas->getI(indice);
+    /*if(indice < neuronas->Longitud() && indice >= 0){
         consultada = neuronas ->getI(indice);
-    }
-    return consultada;
+    }*/
+    return neuronas->getI(indice);
 }

@@ -1,12 +1,10 @@
 #include "redneuronal.h"
 RedNeuronal::RedNeuronal(QVector<int>* vector, int capas){
-    if(vector->size() == capas){
-        for(int i = 0; i < capas ; i++){
-            Capa* c = new Capa(vector->at(i));
-            this->capas->Insertar(c);
-        }
-        CrearConexiones();
+    for(int i = 0; i < capas ; i++){
+        Capa* c = new Capa(vector->at(i));
+        this->capas->Insertar(c);
     }
+    CrearConexiones();
 }
 
 int RedNeuronal::AgregarCapa(int cNeuronas){
@@ -20,10 +18,10 @@ int RedNeuronal::AgregarCapa(Capa* capa){
     return 0;
 }
 
-void RedNeuronal::Entrenar(QVector<int>* datos){
+void RedNeuronal::Entrenar(QVector<int>* datos){ //para meter los inputs
     if(datos->size() == capas->getI(1)->CantidadNeuronas()){
         for(int i = 0 ; i < capas->getI(1)->CantidadNeuronas(); i++){
-            capas->getI(1)->ModificarCapa(datos->at(i),i);
+            capas->getI(1)->ModificarCapa(datos->at(i)/100,i);
         }
     }
 }
@@ -67,4 +65,28 @@ void RedNeuronal::CrearConexiones(){
     }
 }
 
+float RedNeuronal::CalcularError(float dato,float datoEsperado){
+    return datoEsperado-dato;
+}
 
+void RedNeuronal::CorregirCapas(float error){
+    for(int i = 0; i < capas->Longitud(); i++){
+        for(int j = 0 ; j < capas->getI(i)->CantidadNeuronas();j++){
+           Neurona *n =  capas->getI(i)->ConsultarNeurona(j);
+           n->ModificarCarga(n->GetCarga()+error);
+        }
+    }
+}
+
+QString RedNeuronal::MostrarRed(){
+    QString red = "";
+    Neurona *n = capas->getI(0)->ConsultarNeurona(4);
+    if(n!=nullptr){
+        red.append(QString::number(n->GetCarga()));
+        red.append("-");
+        red.append(QString::number(n->GetUmbral()));
+        red.append(">");
+        red.append(QString::number(n->ConsultarConexion(1)->GetPeso()));
+    }
+    return red;
+}

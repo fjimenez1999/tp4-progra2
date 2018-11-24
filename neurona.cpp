@@ -1,15 +1,10 @@
 #include "conexion.h"
 #include "neurona.h"
-Neurona::Neurona(char tipo, float carga, float umbral){
-    if(tipo == 'r'){
+Neurona::Neurona(){
         QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().msec());
         QRandomGenerator *random2 =  new QRandomGenerator((uint) QTime::currentTime().second());
         this->carga=random1->bounded(1.00);
-        this->carga=random2->bounded(1.00);
-    }else{
-        this->carga = carga;
-        this->umbral = umbral;
-    }
+        this->umbral=random2->bounded(1.00);
 }
 
 int Neurona::AgregarConexion(Neurona *receptora){

@@ -28,7 +28,8 @@ SOURCES += \
         mainwindow.cpp \
     neurona.cpp \
     capa.cpp \
-    redneuronal.cpp
+    redneuronal.cpp \
+    lista.cpp
 
 HEADERS += \
         mainwindow.h \

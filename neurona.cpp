@@ -1,16 +1,16 @@
 #include "conexion.h"
 #include "neurona.h"
-Neurona::Neurona(){
-        QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().msec());
-        QRandomGenerator *random2 =  new QRandomGenerator((uint) QTime::currentTime().second());
+Neurona::Neurona(uint seed1,uint seed2){
+        QRandomGenerator *random1 =  new QRandomGenerator(seed1);
+        QRandomGenerator *random2 =  new QRandomGenerator(seed2);
         this->carga=random1->bounded(1.00);
         this->umbral=random2->bounded(1.00);
 }
 
-int Neurona::AgregarConexion(Neurona *receptora){
-   Conexion *c =  new Conexion(receptora);
+void Neurona::AgregarConexion(Neurona *receptora,uint seed){
+   Conexion *c =  new Conexion(receptora,seed);
    conexiones->Insertar(c);
-   return 0;
+
 }
 
 void Neurona::ModificarCarga(float nuevaCarga){

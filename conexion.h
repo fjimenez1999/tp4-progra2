@@ -5,12 +5,16 @@
 #include <QTime>
 class Neurona;
 class Conexion {
-    QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().minute());
+    uint seed;
+    QRandomGenerator *random1;
     Neurona *r = nullptr;
-    float peso = random1->bounded(1.00);
+    float peso;
 public:
-    Conexion(Neurona *neurona=nullptr){
+    Conexion(Neurona *neurona=nullptr,uint seed=(uint) QTime::currentTime().msec()){
         r=neurona;
+        this->seed = seed;
+        random1 = new QRandomGenerator(seed);
+        peso = random1->bounded(1.00);
     }
     void ModificarPeso(float nuevoPeso){
         peso = nuevoPeso;

@@ -15,8 +15,8 @@ class Neurona{
     float umbral;
     Lista<Conexion*> *conexiones = new Lista<Conexion*>;
 public:
-    int AgregarConexion(Neurona *receptora) ;
-    Neurona();
+    void AgregarConexion(Neurona *receptora,uint seed) ;
+    Neurona(uint seed1,uint seed2);
     void ModificarCarga(float nuevaCarga);
     int CantidadConexiones();
     Conexion* ConsultarConexion(int indice);

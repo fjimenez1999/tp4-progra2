@@ -1,12 +1,14 @@
 #include "capa.h"
-Capa::Capa(int cNeuronas){
+Capa::Capa(int cNeuronas,uint seed1,uint seed2){
     for(int i = 0; i < cNeuronas; i++){
-        AgregarNeurona();
+        AgregarNeurona(seed1,seed2);
+        seed1++;
+        seed2++;
     }
 }
 
-int Capa::AgregarNeurona(){
-    Neurona *n = new Neurona();
+int Capa::AgregarNeurona(uint seed1, uint seed2){
+    Neurona *n = new Neurona(seed1,seed2);
     neuronas->Insertar(n);
     return 0;
 }

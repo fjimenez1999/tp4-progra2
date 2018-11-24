@@ -5,9 +5,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    vector->append(2);
+    vector->append(3);
+    vector->append(4);
+    vector->append(3);
     vector->append(5);
-    vector->append(5);
-    red = new RedNeuronal(vector,2);
+    vector->append(7);
+    red = new RedNeuronal(vector,6);
     ui->setupUi(this);
 }
 

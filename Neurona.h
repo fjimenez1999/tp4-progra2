@@ -11,13 +11,17 @@ class Conexion;
 
 
 class Neurona{
-    QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().msec());
-    QRandomGenerator *random2 =  new QRandomGenerator((uint) QTime::currentTime().second());
-    float carga = random1->bounded(1.00);
-    float umbral = random2->bounded(1.00);
-    Lista<Conexion> *conexiones;
+    float carga;
+    float umbral;
+    Lista<Conexion*> *conexiones;
 public:
-    int AgregarConexion(Neurona *neurona, float peso) ;
+    int AgregarConexion(Neurona *receptora) ;
+    Neurona(char tipo, float carga, float umbral);
+    void ModificarCarga(float nuevaCarga);
+    int CantidadConexiones();
+    Conexion* ConsultarConexion(int indice);
+    float GetUmbral(){return umbral;}
+    float GetCarga(){return carga;}
 };
 
 

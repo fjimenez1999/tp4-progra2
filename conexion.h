@@ -6,11 +6,23 @@
 class Neurona;
 class Conexion {
     QRandomGenerator *random1 =  new QRandomGenerator((uint) QTime::currentTime().msec());
-    Neurona *r ;
+    Neurona *r = nullptr;
     float peso = random1->bounded(1.00);
 public:
-    Conexion(Neurona *neurona=nullptr, float peso=0){
+    Conexion(Neurona *neurona=nullptr){
         r=neurona;
-        this->peso=peso;
+    }
+    void ModificarPeso(float nuevoPeso){
+        peso = nuevoPeso;
+    }
+    float GetPeso(){
+        return peso;
+    }
+    Neurona* GetReceptor(){
+        return r;
+    }
+
+    Neurona* SetReceptor(Neurona* nr){
+        r = nr;
     }
 };

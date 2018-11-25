@@ -8,10 +8,9 @@ MainWindow::MainWindow(QWidget *parent) :
     vector->append(2);
     vector->append(3);
     vector->append(4);
+    vector->append(4);
     vector->append(3);
-    vector->append(5);
-    vector->append(7);
-    red = new RedNeuronal(vector,6);
+    red = new RedNeuronal(vector,5);
     ui->setupUi(this);
 }
 

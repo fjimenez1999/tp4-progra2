@@ -49,7 +49,8 @@ void RedNeuronal::CrearConexiones(){
     for(int i = 0 ; i < capas->Longitud(); i++){
         if(i%1 == 0){
             Capa *capaActual = capas->getI(i);
-            Capa *capaSig = capas->getI(++i);
+            int nuevaCapa = i+1;
+            Capa *capaSig = capas->getI(nuevaCapa);
             for(int i = 0 ; i < capaActual->CantidadNeuronas(); i++){
                 if(capaSig != nullptr){
                     for(int j = 0; j <  capaSig->CantidadNeuronas();j++){
@@ -79,16 +80,27 @@ void RedNeuronal::CorregirCapas(float error){
 QString RedNeuronal::MostrarRed(){
     QString red = "";
     for(int i = 0 ; i < capas->Longitud(); i++){
+        red.append("Capa: ");
+        red.append(QString::number(i));
+        red.append("\n");
         for(int j = 0 ; j < capas->getI(i)->CantidadNeuronas();j++){
+            red.append("Neurona: ");
+            red.append(QString::number(j));
+            red.append("\n");
+            red.append("Carga: ");
             red.append(QString::number(capas->getI(i)->ConsultarNeurona(j)->GetCarga()));
-            red.append("-");
+            red.append(" Umbral: ");
             red.append(QString::number(capas->getI(i)->ConsultarNeurona(j)->GetUmbral()));
-            red.append("cant conexiones:");
+            red.append(" Cantidad de conexiones:");
             red.append(QString::number(capas->getI(i)->ConsultarNeurona(j)->CantidadConexiones()));
             red.append("\n");
             for(int k = 0; k < capas->getI(i)->ConsultarNeurona(j)->CantidadConexiones();k++){
+                red.append("Conexion: ");
+                red.append(QString::number(k));
+                red.append("\n");
+                red.append("Peso: ");
                 red.append(QString::number(capas->getI(i)->ConsultarNeurona(j)->ConsultarConexion(k)->GetPeso()));
-                red.append(">");
+                red.append("\n");
             }
             red.append("\n");
         }

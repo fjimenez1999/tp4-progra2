@@ -29,7 +29,8 @@ SOURCES += \
     neurona.cpp \
     capa.cpp \
     redneuronal.cpp \
-    lista.cpp
+    lista.cpp \
+    texto.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -38,7 +39,8 @@ HEADERS += \
     lista.h \
     nodolista.h \
     capa.h \
-    redneuronal.h
+    redneuronal.h \
+    texto.h
 
 FORMS += \
         mainwindow.ui

@@ -1,51 +1,51 @@
+
 #include "redneuronal.h"
 RedNeuronal::RedNeuronal(QVector<int>* vector, int capas){
-    uint seed1 = (uint) QTime::currentTime().msec();
-    uint seed2 = (uint) QTime::currentTime().second();
+    uint seed = (uint) QTime::currentTime().msec() ;
+    srand(seed);
     for(int i = 0; i < capas ; i++){
-        Capa* c = new Capa(vector->at(i),seed1,seed2);
+        Capa* c = new Capa(vector->at(i));
         this->capas->Insertar(c);
-        seed1+=5;
-        seed2+=5;
     }
     CrearConexiones();
 }
 
 void RedNeuronal::Entrenar(QVector<int>* datos){ //para meter los inputs
     if(datos->size() == capas->getI(1)->CantidadNeuronas()){
-        for(int i = 0 ; i < capas->getI(1)->CantidadNeuronas(); i++){
-            capas->getI(1)->ModificarCapa(datos->at(i)/100,i);
+        if(datos->size() == capas->getI(1)->CantidadNeuronas()){
+            for(int i = 0 ; i < capas->getI(1)->CantidadNeuronas(); i++){
+                capas->getI(1)->ModificarCapa(datos->at(i)/100,i);
+            }
         }
     }
 }
 
-QVector<float>* RedNeuronal::Output(){
+QVector<double>* RedNeuronal::Output(){ //da el resultado
     for(int i = 0 ; i < capas->Longitud(); i++){
         RevisarCapa(i);
     }
-    QVector<float>* vector = nullptr;
+    QVector<double>* vector = new QVector<double>;
     for(int i = 0; i < capas->getI(capas->Longitud()-1)->CantidadNeuronas() ; i++){
         vector->append(capas->getI(capas->Longitud()-1)->ConsultarNeurona(i)->GetCarga());
     }
     return vector;
 }
 
-void RedNeuronal::RevisarCapa(int capa){
+void RedNeuronal::RevisarCapa(int capa){//se utiliza en el metodo output
     Capa *capaActual = capas->getI(capa);
     for(int i = 0 ; i < capaActual->CantidadNeuronas(); i++){
         for(int j = 0; j < capaActual->ConsultarNeurona(i)->CantidadConexiones();j++){
-              float umbralReceptor = capaActual->ConsultarNeurona(i)->ConsultarConexion(j)->GetReceptor()->GetUmbral();
+              double umbralReceptor = capaActual->ConsultarNeurona(i)->ConsultarConexion(j)->GetReceptor()->GetUmbral();
               Neurona* receptor = capaActual->ConsultarNeurona(i)->ConsultarConexion(j)->GetReceptor();
               if(capaActual->ConsultarNeurona(i)->GetCarga() >= umbralReceptor){
-                    float nuevaCarga = (receptor->GetCarga()) + (capaActual->ConsultarNeurona(i)->GetCarga()*capaActual->ConsultarNeurona(i)->ConsultarConexion(j)->GetPeso());
+                    double nuevaCarga = (receptor->GetCarga()) + (capaActual->ConsultarNeurona(i)->GetCarga()*capaActual->ConsultarNeurona(i)->ConsultarConexion(j)->GetPeso())/100;
                     receptor->ModificarCarga(nuevaCarga);
               }
         }
     }
 }
 
-void RedNeuronal::CrearConexiones(){
-    uint seed = (uint) QTime::currentTime().minute();
+void RedNeuronal::CrearConexiones(){//crea las conexiones entre las capas
     for(int i = 0 ; i < capas->Longitud(); i++){
         if(i%1 == 0){
             Capa *capaActual = capas->getI(i);
@@ -54,8 +54,7 @@ void RedNeuronal::CrearConexiones(){
             for(int i = 0 ; i < capaActual->CantidadNeuronas(); i++){
                 if(capaSig != nullptr){
                     for(int j = 0; j <  capaSig->CantidadNeuronas();j++){
-                        capaActual->ConsultarNeurona(i)->AgregarConexion(capaSig->ConsultarNeurona(j),seed);
-                        seed++;
+                        capaActual->ConsultarNeurona(i)->AgregarConexion(capaSig->ConsultarNeurona(j));
                     }
                 }
             }
@@ -64,17 +63,19 @@ void RedNeuronal::CrearConexiones(){
     }
 }
 
-float RedNeuronal::CalcularError(float dato,float datoEsperado){
-    return datoEsperado-dato;
+double RedNeuronal::CalcularError(double dato,double datoEsperado){
+    //1-el valor absoluto
+    double error = datoEsperado-dato;
+    if(error < 0){
+        error*=-1;
+    }else if(error == 1){
+        error = 0;
+    }
+    return 1-error;
 }
 
-void RedNeuronal::CorregirCapas(float error){
-    for(int i = 0; i < capas->Longitud(); i++){
-        for(int j = 0 ; j < capas->getI(i)->CantidadNeuronas();j++){
-           Neurona *n =  capas->getI(i)->ConsultarNeurona(j);
-           n->ModificarCarga(n->GetCarga()+error);
-        }
-    }
+void RedNeuronal::CorregirCapas(double error){
+    ModificarPesos(error);
 }
 
 QString RedNeuronal::MostrarRed(){
@@ -106,4 +107,14 @@ QString RedNeuronal::MostrarRed(){
         }
     }
     return red;
+}
+
+void RedNeuronal::ModificarPesos(double nuevoPeso){//modifica todos los pesos de las conexiones a partir del error
+    for(int i =0 ; i < capas->Longitud() ; i++){
+        for(int j = 0 ; j < capas->getI(i)->CantidadNeuronas() ; j++){
+            for(int k = 0;k< capas->getI(i)->ConsultarNeurona(j)->CantidadConexiones(); k++){
+                capas->getI(i)->ConsultarNeurona(j)->ModificarPeso(k,capas->getI(i)->ConsultarNeurona(j)->ConsultarConexion(k)->GetPeso()*nuevoPeso);
+            }
+        }
+    }
 }

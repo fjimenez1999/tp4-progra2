@@ -1,25 +1,20 @@
-
 #pragma once  //qt estaba tirando un error al usar include guards normales en archivos especificos, por eso pragma once
 #include "neurona.h"
-#include <QRandomGenerator>
 #include <QTime>
 class Neurona;
 class Conexion {
-    uint seed;
-    QRandomGenerator *random1;
     Neurona *r = nullptr;
-    float peso;
+    double peso;
 public:
-    Conexion(Neurona *neurona=nullptr,uint seed=(uint) QTime::currentTime().msec()){
+    Conexion(Neurona *neurona=nullptr){
         r=neurona;
-        this->seed = seed;
-        random1 = new QRandomGenerator(seed);
-        peso = random1->bounded(1.00);
+        double random1 = qrand();
+        peso = random1/RAND_MAX;
     }
-    void ModificarPeso(float nuevoPeso){
+    void ModificarPeso(double nuevoPeso){
         peso = nuevoPeso;
     }
-    float GetPeso(){
+    double GetPeso(){
         return peso;
     }
     Neurona* GetReceptor(){
@@ -28,5 +23,9 @@ public:
 
     Neurona* SetReceptor(Neurona* nr){
         r = nr;
+    }
+
+    void SetPeso(double nuevoPeso){
+        peso = nuevoPeso;
     }
 };

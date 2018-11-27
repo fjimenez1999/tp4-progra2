@@ -1,19 +1,22 @@
 #include "conexion.h"
 #include "neurona.h"
-Neurona::Neurona(uint seed1,uint seed2){
-        QRandomGenerator *random1 =  new QRandomGenerator(seed1);
-        QRandomGenerator *random2 =  new QRandomGenerator(seed2);
-        this->carga=random1->bounded(1.00);
-        this->umbral=random2->bounded(1.00);
+
+Neurona::Neurona(){
+        double random1 =  qrand();
+        double random2 =  qrand();
+        this->carga=random1/RAND_MAX*10000;
+        this->carga-=(int)carga;
+        this->umbral=random2/RAND_MAX*10000;
+        this->umbral-=(int)umbral;
 }
 
-void Neurona::AgregarConexion(Neurona *receptora,uint seed){
-   Conexion *c =  new Conexion(receptora,seed);
+void Neurona::AgregarConexion(Neurona *receptora){
+   Conexion *c =  new Conexion(receptora);
    conexiones->Insertar(c);
 
 }
 
-void Neurona::ModificarCarga(float nuevaCarga){
+void Neurona::ModificarCarga(double nuevaCarga){
     carga = nuevaCarga;
 }
 
@@ -24,3 +27,6 @@ Conexion* Neurona::ConsultarConexion(int indice){
     return conexiones->getI(indice);
 }
 
+void Neurona::ModificarPeso(int indice,double nuevoPeso){
+    conexiones->getI(indice)->SetPeso(nuevoPeso);
+}

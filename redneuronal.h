@@ -2,7 +2,7 @@
 #define REDNEURONAL_H
 #include "capa.h"
 #include <QVector>
-class RedNeuronal{   
+class RedNeuronal{
     Lista<Capa*> *capas = new Lista<Capa*>;
     void RevisarCapa(int capa);
     void CrearConexiones();//metodo para crear conexiones entre todas las capas con la capa que sigue
@@ -12,9 +12,10 @@ public:
     int AgregarCapa(Capa* capa);
     //Categoria clasificar(dato) ;
     void Entrenar(QVector<int>* datos) ;
-    QVector<float>* Output();
-    void CorregirCapas(float error);
-    float CalcularError(float dato,float datoEsperado);
+    QVector<double>* Output();
+    void CorregirCapas(double error);
+    double CalcularError(double dato,double datoEsperado);
     QString MostrarRed();
+    void ModificarPesos(double nuevoPeso);
 };
-#endif // REDNEURONAL_H
+#endif // RED

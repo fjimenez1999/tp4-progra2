@@ -11,6 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
     vector->append(3);
     red = new RedNeuronal(vector,5);
     ui->setupUi(this);
+    ui->textEdit_9->setReadOnly(true);
+    ui->textEdit_10->setReadOnly(true);
+    ui->textEdit_12->setReadOnly(true);
 }
 
 MainWindow::~MainWindow()

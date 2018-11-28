@@ -11,12 +11,8 @@ RedNeuronal::RedNeuronal(QVector<int>* vector, int capas){
 }
 
 void RedNeuronal::Entrenar(QVector<int>* datos){ //para meter los inputs
-    if(datos->size() == capas->getI(1)->CantidadNeuronas()){
-        if(datos->size() == capas->getI(1)->CantidadNeuronas()){
-            for(int i = 0 ; i < capas->getI(1)->CantidadNeuronas(); i++){
-                capas->getI(1)->ModificarCapa(datos->at(i)/100,i);
-            }
-        }
+    for(int i = 0 ; i < capas->getI(0)->CantidadNeuronas(); i++){
+        capas->getI(0)->ModificarCapa((double)datos->at(i)/100,i);
     }
 }
 
@@ -66,12 +62,10 @@ void RedNeuronal::CrearConexiones(){//crea las conexiones entre las capas
 double RedNeuronal::CalcularError(double dato,double datoEsperado){
     //1-el valor absoluto
     double error = datoEsperado-dato;
-    if(error < 0){
-        error*=-1;
-    }else if(error == 1){
+    if(error == -1){
         error = 0;
     }
-    return 1-error;
+    return 1+error;
 }
 
 void RedNeuronal::CorregirCapas(double error){

@@ -7,10 +7,6 @@ Texto::Texto(QString nuevoTxt){
 QVector<int>* Texto::EncontrarRepetidas(){
     QVector<int>* cantidades = new QVector<int>;
     QStringList palabras = txt.split(QRegExp("\\s+"), QString::SkipEmptyParts);
-    /*QVector<QString> *palabras = new QVector<QString>;
-    for(int i = 0 ; i < palabrasStringList.count(); i++){
-        palabras->append(palabrasStringList.at(i));
-    }*/
     std::sort(palabras.begin(),palabras.end());
     int contadas = 0;
     if(palabras.size() != 0){

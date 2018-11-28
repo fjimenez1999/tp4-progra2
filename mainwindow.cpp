@@ -10,8 +10,12 @@ ui(new Ui::MainWindow)
     vector->append(3);
     vector->append(4);
     vector->append(4);
+    vector->append(5);
     vector->append(3);
-    red = new RedNeuronal(vector,5);
+    vector->append(6);
+    vector->append(6);
+    vector->append(3);
+    red = new RedNeuronal(vector,9);
     ui->setupUi(this);
     ui->textEdit_9->setReadOnly(true);
     ui->textEdit_10->setReadOnly(true);
@@ -25,7 +29,6 @@ MainWindow::~MainWindow()
     delete vector;
     delete red;
     delete ui;
-
 }
 
 
@@ -57,27 +60,6 @@ void MainWindow::on_pushButton_2_clicked()
     Texto *t = new Texto(ui->textEdit->toPlainText());
     QString rep="";
     QVector<int>* vec = t->EncontrarRepetidas();
-    /*QVector<int>* vec = new QVector<int>();
-
-    vec->append(23);
-
-    vec->append(23);
-
-    vec->append(23);
-
-    vec->append(23);
-
-    vec->append(23);
-
-    vec->append(23);
-
-    vec->append(23);
-
-    vec->append(27);
-
-    vec->append(23);
-
-    vec->append(23);*/
     std::sort(vec->begin(),vec->end(),std::greater<int>());
     red->Entrenar(vec);
     QVector<double>* out = red->Output();
@@ -90,14 +72,4 @@ void MainWindow::on_pushButton_2_clicked()
             ui->textEdit_12->setText(QString::number(out->at(i)));
         }
     }
-    /*for(int i = 0; i < vec->size() && i < 10; i++){
-
-
-        red->Entrenar()
-        //rep.append(QString::number(vec->at(i)));
-
-        //rep.append(" / ");
-    }
-
-    ui->textEdit_2->setText(rep);*/
 }
